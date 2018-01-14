@@ -1,0 +1,56 @@
+{
+  "name": "@skruf/react-form-utils",
+  "version": "1.0.0",
+  "description": "utility functions for react forms",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
+  "repository": "https://github.com/LarsDam/skruf.react-form-utils",
+  "bugs": {
+    "url": "https://github.com/LarsDam/skruf.react-form-utils/issues"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "author": "Lars Andersen",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.23.1",
+    "babel-jest": "^22.0.6",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "jest": "^22.0.6",
+    "jest-cli": "^22.0.6",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.7.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-hot-loader": "3.1.1",
+    "rimraf": "^2.6.1",
+    "webpack": "^3.0.0",
+    "webpack-dashboard": "^1.0.0",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "scripts": {
+    "build:commonjs": "cross-env BABEL_ENV=es babel src --out-dir lib",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/react-form-utils.js",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js dist/react-form-utils.min.js",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
+    "clean": "rimraf lib dist es",
+    "prepublish": "npm run clean && npm test && npm run build",
+    "start": "webpack-dashboard -- webpack-dev-server --open --profile --config ./demo/webpack.config.js",
+    "vendor": "webpack --config vendor.webpack.config.js",
+    "profile": "webpack --profile --config ./demo/webpack.config.js",
+    "test": "NODE_ENV=test jest"
+  }
+}
